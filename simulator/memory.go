@@ -15,3 +15,7 @@ func (mem *Memory) Read(address int) Instruction {
 	// Return a default NOP (No Operation)
 	return Instruction{"NOP", 0}
 }
+
+func (mem *Memory) Write(address int, instruction Instruction) {
+	mem.data[address] = instruction
+}
