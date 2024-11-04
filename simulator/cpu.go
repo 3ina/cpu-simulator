@@ -11,3 +11,8 @@ type Cpu struct {
 	IR     Instruction // instruction register
 	Halted bool        // cpu halt status
 }
+
+func (cpu *Cpu) Fetch(mem *Memory) {
+	cpu.IR = mem.Read(cpu.PC)
+	cpu.PC++
+}
