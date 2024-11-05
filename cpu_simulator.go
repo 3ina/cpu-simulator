@@ -10,7 +10,23 @@ import (
 )
 
 func main() {
+	mem := simulator.NewMemory()
+	cpu := &simulator.Cpu{}
 
+	err := LoadInstructions("instructions.txt", mem)
+
+	if err != nil {
+		fmt.Println("Error loading instructions:", err)
+		return
+	}
+
+	for !cpu.Halted {
+		cpu.Fetch(mem)
+		cpu.DecodeAndExecute(mem)
+
+		fmt.Printf("PC: %d, AC: %d, IR: {%s %d}\n",
+			cpu.PC, cpu.AC, cpu.IR.Opcode, cpu.IR.Operand)
+	}
 }
 
 func LoadInstructions(filename string, mem *simulator.Memory) error {
